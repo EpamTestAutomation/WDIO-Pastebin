@@ -1,32 +1,10 @@
-describe('Pastebin page test sute: ', () => {
+describe('Pastebin page test suite', () => {
 
-    /**
-    * Open the Pastebin website.
-    */
     beforeEach(async () => {
         await browser.url('https://pastebin.com/');
     })
 
-     /**
-     * Create 'New Paste' with the following attributes:
-     * 2. Create 'New Paste' with the following attributes:
-     * Code:
-     *      git config --global user.name  "New Sheriff in Town"
-     *      git reset $(git commit-tree HEAD^{tree} -m "Legacy code")
-     *      git push origin master --force
-     * Syntax Highlighting: "Bash"
-     * Paste Expiration: "10 Minutes"
-     * Paste Name / Title: "how to gain dominance among developers"
-     * 3. Save 'paste' and check the following:
-     * Browser page title matches 'Paste Name / Title'
-     * Syntax is suspended for bash
-     * Check that the code matches the one from paragraph 2
-     */
-     it('Create new paste and verifications: ', async () => {
-        //Click on the "New Paste" button
-        //const newPasteButton = await $('a.header__btn')
-        //await newPasteButton.click()
-
+     it('Create New Paste on pastebin and verifications', async () => {
         //Enter the code "Hello from WebDriver" in the text area
         const codeTextarea = await $('textarea#postform-text')
         await codeTextarea.setValue('git config --global user.name  "New Sheriff in Town"' +
@@ -55,8 +33,7 @@ describe('Pastebin page test sute: ', () => {
          await titleInput.setValue('how to gain dominance among developers')
 
         //Submit the new paste
-        const submitButton = await $('.-big.btn')
-        await submitButton.click()
+        await $('.-big.btn').click()
 
         // Verify page title matches paste name/title
         const pageTitle = await $('h1=how to gain dominance among developers')
@@ -68,7 +45,6 @@ describe('Pastebin page test sute: ', () => {
 
         // Verify the code matches the one from paragraph 2
         const displayedCode = await $('div.source').$('li:nth-child(2)').getText()
-        console.log()
         await expect(displayedCode).toContain('git reset $(git commit-tree HEAD^{tree} -m "Legacy code")')
     })
 })
